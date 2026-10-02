@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quest for Reform: The Gilded Age and Progressive Era</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Zilla+Slab:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pix:'Press Start 2P','Courier New',monospace;
+  --serif:'Zilla Slab',Georgia,'Times New Roman',serif;
+  --bg:#d6e4ef; --bg2:#bcd1e3; --panel:#f7fbff; --panel2:#e1edf7;
+  --ink:#10243b; --muted:#46607a; --gold:#f2c14e; --goldtext:#7a5200;
+  --good:#2f7d3a; --on-good:#ffffff; --bad:#b3342c; --on-bad:#ffffff;
+  --line:#10243b; --field:#ffffff; --field-ink:#10243b;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#162a45; --bg2:#10203a; --panel:#1f3d5e; --panel2:#2d5b7e;
+    --ink:#f3e9cf; --muted:#b4c4d3; --goldtext:#f2c14e;
+    --good:#6cc070; --on-good:#0c2410; --bad:#ff7b72; --on-bad:#2a0a08;
+    --line:#0a1424; --field:#f3e9cf; --field-ink:#162a45;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#162a45; --bg2:#10203a; --panel:#1f3d5e; --panel2:#2d5b7e;
+  --ink:#f3e9cf; --muted:#b4c4d3; --goldtext:#f2c14e;
+  --good:#6cc070; --on-good:#0c2410; --bad:#ff7b72; --on-bad:#2a0a08;
+  --line:#0a1424; --field:#f3e9cf; --field-ink:#162a45;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.55;min-height:100%}
+button,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--goldtext);outline-offset:3px}
+h1,h2,h3,p{margin:0}
+.wrap{max-width:760px;margin:0 auto;padding:12px 16px 56px}
+.pix{font-family:var(--pix);line-height:1.6;font-weight:400}
+.muted{color:var(--muted)}
+.small{font-size:15px}
+
+/* HUD */
+.hud{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:10px 0 12px;display:grid;grid-template-columns:1fr auto;gap:8px 12px;align-items:center}
+.who{font-family:var(--pix);font-size:11px;line-height:1.6}
+.xprow{grid-column:1/-1;display:flex;align-items:center;gap:12px}
+.bar{position:relative;flex:1;height:18px;background:var(--bg2);border:3px solid var(--line)}
+.bar>i{position:absolute;inset:0 auto 0 0;background:var(--gold);transition:width .5s steps(10)}
+.bar>b{position:absolute;top:0;bottom:0;width:3px;background:var(--line);margin-left:-1px}
+.xpnum{font-family:var(--pix);font-size:11px;min-width:100px;text-align:right}
+.rankline{grid-column:1/-1;font-size:15px;color:var(--muted);margin-top:-4px}
+.iconbtn{width:44px;height:44px;border:3px solid var(--line);background:var(--panel2);box-shadow:0 3px 0 var(--line);cursor:pointer;font-size:18px}
+
+/* Buttons and panels */
+.btn{font-family:var(--pix);font-size:12px;line-height:1.5;padding:12px 16px;min-height:46px;background:var(--panel2);border:3px solid var(--line);box-shadow:0 4px 0 var(--line);cursor:pointer;text-align:left}
+.btn:hover:not([disabled]){filter:brightness(1.07)}
+.btn:active:not([disabled]){transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.btn.primary{background:var(--gold);color:#2a1d00}
+.btn.sm{font-size:10px;padding:8px 12px;min-height:40px}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.panel{background:var(--panel);border:3px solid var(--line);box-shadow:0 4px 0 var(--line);padding:16px}
+.stack>*+*{margin-top:16px}
+
+/* Hero scene */
+.hero{border:3px solid var(--line);box-shadow:0 4px 0 var(--line);overflow:hidden;aspect-ratio:2/1;background:#162a45}
+.hero.slim{aspect-ratio:auto;height:92px}
+.hero svg{display:block;width:100%;height:100%}
+.tr{transform:translateX(20px);animation:cross 20s linear infinite}
+@keyframes cross{from{transform:translateX(-50px)}to{transform:translateX(170px)}}
+.puff{animation:puff 3s ease-out infinite}
+.puff.p2{animation-delay:1s}.puff.p3{animation-delay:2s}
+@keyframes puff{from{transform:translateY(0);opacity:.9}to{transform:translateY(-9px);opacity:0}}
+
+/* Title */
+.title h1{font-family:var(--pix);font-weight:400;font-size:clamp(20px,6vw,34px);line-height:1.35;text-shadow:3px 3px 0 var(--gold);margin-top:22px}
+.title .lead{margin-top:12px;max-width:34em}
+.field-label{display:block;font-family:var(--pix);font-size:11px;margin:20px 0 8px}
+.text-in{width:100%;padding:12px;background:var(--field);color:var(--field-ink);border:3px solid var(--line);font-size:18px}
+details.panel summary{cursor:pointer;font-family:var(--pix);font-size:11px;line-height:1.6}
+.ranktable{width:100%;border-collapse:collapse;margin-top:12px}
+.ranktable td{padding:8px 6px;border-top:2px solid var(--line);vertical-align:top}
+.ranktable tr.me td{background:var(--gold);color:#2a1d00;font-weight:700}
+
+/* Factions */
+.facs{display:grid;gap:14px;margin-top:20px}
+.fac{display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:center;padding:14px;background:var(--panel);border:3px solid var(--line);box-shadow:0 4px 0 var(--line);cursor:pointer;text-align:left;width:100%}
+.fac .ic{font-size:34px;text-align:center}
+.fac strong{font-family:var(--pix);font-weight:400;font-size:12px;line-height:1.6;display:block}
+.fac[aria-pressed="true"]{background:var(--gold);color:#2a1d00}
+
+/* Map / level track */
+.track{list-style:none;margin:20px 0 0;padding:0}
+.stop{position:relative;display:grid;grid-template-columns:56px 1fr;gap:14px;padding-bottom:22px}
+.stop:not(:last-child)::before{content:"";position:absolute;left:25px;top:60px;bottom:-4px;width:6px;background:repeating-linear-gradient(var(--line) 0 8px,transparent 8px 14px)}
+.node{position:relative;z-index:1;width:56px;height:56px;display:grid;place-items:center;background:var(--panel2);border:3px solid var(--line);box-shadow:0 4px 0 var(--line);font-family:var(--pix);font-size:16px}
+.node svg{width:44px;height:auto;display:block}
+.stop.cleared .node{background:var(--gold);color:#2a1d00}
+.stop.locked .node{opacity:.55}
+.stopcard h2{font-size:22px;line-height:1.25;font-weight:700}
+.stopcard .focus{color:var(--muted);font-size:16px;margin-top:2px}
+.qlist{list-style:none;margin:12px 0 0;padding:0}
+.qrow{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:10px 0;border-top:2px solid var(--line)}
+.qrow.boss{padding-left:14px;border-left:6px solid var(--bad)}
+.qname{font-weight:700;line-height:1.3}
+.meta{font-size:15px;color:var(--muted)}
+.got{font-family:var(--pix);font-size:10px;line-height:1.6;color:var(--goldtext);text-align:right}
+.lock{font-size:15px;color:var(--muted);text-align:right}
+
+/* Quest play */
+.qhead .pix.h1{font-size:clamp(15px,4.4vw,22px);margin:6px 0 10px}
+.badge{display:inline-block;margin-top:8px;padding:4px 10px;background:var(--gold);color:#2a1d00;font-size:15px;font-weight:700;border:2px solid var(--line)}
+.pips{display:flex;gap:6px;margin:18px 0 8px}
+.pip{width:22px;height:10px;background:var(--bg2);border:2px solid var(--line)}
+.pip.done{background:var(--gold)}.pip.now{background:var(--panel2);outline:2px solid var(--goldtext)}
+.item{font-size:21px;line-height:1.4;font-weight:500}
+.opts{display:grid;gap:12px;margin-top:16px}
+.opts.gates{grid-template-columns:1fr 1fr}
+@media (max-width:480px){.opts.gates{grid-template-columns:1fr}}
+.opt{font-family:var(--serif);font-size:18px;line-height:1.35;padding:12px 14px;min-height:52px;background:var(--panel);border:3px solid var(--line);box-shadow:0 4px 0 var(--line);cursor:pointer;text-align:left}
+.opt strong{display:block}
+.opt:hover:not([disabled]){background:var(--panel2)}
+.opt:active:not([disabled]){transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.opts.gates .opt{padding:18px 14px;text-align:center}
+.opts.gates .opt strong{font-family:var(--pix);font-weight:400;font-size:13px;line-height:1.6;margin-bottom:4px}
+.opt.good{background:var(--good);color:var(--on-good)}
+.opt.bad{background:var(--bad);color:var(--on-bad);animation:shake .3s}
+.opt.used{opacity:.5}
+.opt[disabled]{cursor:default}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.feedback{min-height:56px;margin-top:16px}
+.feedback .okline{font-weight:700}
+.streak{font-family:var(--pix);font-size:10px;line-height:1.6;color:var(--goldtext)}
+
+/* Writing and boss */
+.bosscard{display:flex;flex-direction:column;gap:8px}
+.hp{display:flex;align-items:center;gap:10px}
+.hp .bar{background:var(--bg2)}
+.hp .bar>i{background:var(--bad);transition:width .9s steps(12)}
+.hp span{font-family:var(--pix);font-size:10px}
+.rubric{list-style:none;margin:10px 0 0;padding:0}
+.rubric li{display:grid;grid-template-columns:28px 1fr auto;gap:8px;padding:6px 0;border-top:2px solid var(--line);line-height:1.35}
+.rubric .sym{font-family:var(--pix);font-size:12px}
+.rubric .pts{font-family:var(--pix);font-size:10px}
+.writer label{display:block;font-family:var(--pix);font-size:11px;margin:16px 0 6px}
+textarea{width:100%;padding:12px;background:var(--field);color:var(--field-ink);border:3px solid var(--line);font-size:18px;line-height:1.45;resize:vertical;min-height:96px}
+.wc{font-size:14px;color:var(--muted);margin-top:4px}
+
+/* Done / End */
+.bigxp{font-family:var(--pix);font-size:clamp(26px,9vw,46px);line-height:1.3;color:var(--goldtext)}
+.lines p+p{margin-top:4px}
+.rankcard{text-align:center}
+.rankcard .em{font-size:56px;line-height:1.1}
+.rankcard .pix{font-size:clamp(14px,4vw,20px)}
+textarea.report{min-height:220px;font-family:'Courier New',monospace;font-size:14px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(function(){
+"use strict";
+
+const $ = (s, r) => (r || document).querySelector(s);
+const H = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const words = s => (s || "").trim().split(/\s+/).filter(Boolean).length;
+const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+const FACTIONS = [
+  {id:"homesteader", icon:"🌾", name:"The Homesteader", tag:"west", perk:"+20 XP on all Westward Expansion quests"},
+  {id:"railroad", icon:"🚂", name:"The Railroad Worker", tag:"tech", perk:"+20 XP on all Technology & Industry quests"},
+  {id:"muckraker", icon:"🏭", name:"The Muckraker", tag:"reform", perk:"+20 XP on all Progressive Era & Reform quests"},
+  {id:"leader", icon:"⚖️", name:"The Progressive Leader", tag:"politics", perk:"+20 XP on all Political & Presidential quests"}
+];
+
+const RANKS = [
+  {min:750, name:"Master Reformer", icon:"🏛️", bonus:10, range:"750 to 1,000 XP"},
+  {min:500, name:"Muckraking Journalist", icon:"📰", bonus:7, range:"500 to 749 XP"},
+  {min:250, name:"Frontier Pioneer", icon:"🤠", bonus:5, range:"250 to 499 XP"},
+  {min:0, name:"Town Citizen", icon:"🏘️", bonus:2, range:"Under 250 XP"}
+];
+
+const LEVELS = [
+  {id:1, title:"The Western Frontier & Innovation", years:"1870 to 1890", focus:"Manifest Destiny, the Homestead Act, the Transcontinental Railroad, and inventions", quests:["1.1","1.1b","1.2"]},
+  {id:2, title:"Native American Resistance & Assimilation", years:"", focus:"The Dawes Act, the reservation system, and cultural impacts", quests:["2.1"]},
+  {id:3, title:"Muckrakers & Society's Flaws", years:"", focus:"Exposing industrial abuse, urban poverty, and dangerous food production", quests:["3.1","3.2"]},
+  {id:4, title:"Populism & Power to the People", years:"", focus:"The People's Party, the Grange movement, and democratic reforms", quests:["4.1"]},
+  {id:5, title:"The President Showdown", years:"", focus:"Theodore Roosevelt, William Howard Taft, and Woodrow Wilson", quests:["5.1"]}
+];
+const ALLQ = ["1.1","1.1b","1.2","2.1","3.1","3.2","4.1","5.1","final"];
+const UNLOCK_AT = 3;
+
+const D = (res, s) => res.filter(r => r.test(s)).length;
+const half = n => n >= 2 ? 1 : n === 1 ? 0.5 : 0;
+
+const QUESTS = {
+"1.1": {id:"1.1", level:1, name:"The Pioneer's Dilemma", max:50, tags:["west"], type:"match", variant:"gates",
+  intro:"Sort each event. Does it push people away from home, or pull them toward the West?",
+  targets:[{id:"push", label:"Push factor", sub:"A reason to flee"},{id:"pull", label:"Pull factor", sub:"A reason to move West"}],
+  items:[
+    {text:"The Homestead Act offering 160 acres of land.", answer:"pull", why:"The government offered 160 acres to anyone willing to farm it, which drew families west."},
+    {text:"Severe racial violence and oppression against Exodusters in the South.", answer:"push", why:"Black families left the post-Reconstruction South to escape violence and oppression."},
+    {text:"Completion of the Transcontinental Railroad.", answer:"pull", why:"The railroad made the trip west faster, cheaper, and safer."},
+    {text:"Destruction of crops by grasshopper swarms and extreme weather.", answer:"push", why:"Ruined harvests drove farmers off their land to look for a fresh start."}
+  ]},
+"1.1b": {id:"1.1b", level:1, name:"Two Sides of Free Land", label:"Challenge boss", boss:true, requires:"1.1", max:25, tags:[], type:"write",
+  intro:"In 2 to 3 sentences, explain how the Homestead Act acted as a pull factor for white settlers but a push factor for Native Americans.",
+  fields:[{key:"a", label:"Your answer", min:12, rows:5, ph:"The Homestead Act pulled white settlers west because..."}],
+  criteria:[
+    {label:"Pull for white settlers: free or cheap land (160 acres) offered a chance to own a farm", pts:13,
+      fn:c=>/160|free|cheap|farm|own land|opportunit|homestead/.test(c.low.a) && /white|settler|farmer|homesteader|pioneer|famil/.test(c.low.a) ? 1 : 0},
+    {label:"Push for Native Americans: settlement took their homelands and forced them onto reservations", pts:12,
+      fn:c=>/native|indian|tribe|tribal|indigenous/.test(c.low.a) && /push|forc|remov|lost|taken|took|take|displac|reservation|driv|moved|evict|seiz|stole|steal|land/.test(c.low.a) ? 1 : 0}
+  ]},
+"1.2": {id:"1.2", level:1, name:"The Innovation Match", max:50, tags:["west","tech"], type:"match",
+  intro:"Match each Gilded Age innovation to its impact on society.",
+  targets:[
+    {id:"A", label:"A. Created night shifts and extended workplace productivity."},
+    {id:"B", label:"B. Allowed cheap mass production of steel for railroads and skyscrapers."},
+    {id:"C", label:"C. Allowed instant long-distance communication across the nation."}
+  ], unique:true,
+  items:[
+    {text:"Bessemer Process", answer:"B", why:"Cheap steel built the rails and the skyscrapers of the new industrial cities."},
+    {text:"Telegraph / Telephone", answer:"C", why:"News and business orders could now cross the country in moments."},
+    {text:"Incandescent Lightbulb", answer:"A", why:"Electric light let factories run after dark."}
+  ]},
+"2.1": {id:"2.1", level:2, name:"The Policy Investigator", max:75, tags:["west"], type:"match",
+  intro:"Answer three questions about federal policy in the West.",
+  items:[
+    {text:"What was the main goal of the Dawes Act of 1887?", answer:"a",
+      options:[
+        {id:"a", label:"Break up tribal land into individual plots to push Native Americans toward farming and assimilation"},
+        {id:"b", label:"Give tribes full independence and control over reservation land"},
+        {id:"c", label:"Move every tribe to Canada"},
+        {id:"d", label:"Pay tribes for land used by the railroads"}],
+      why:"Dawes split shared tribal land into individual allotments. The goal was to turn Native Americans into small farmers and absorb them into white American society."},
+    {text:"In the context of Native American boarding schools, what does assimilation mean?", answer:"b",
+      options:[
+        {id:"a", label:"Teaching students to preserve their tribal traditions"},
+        {id:"b", label:"Forcing students to give up their languages, clothing, and traditions and adopt white American culture"},
+        {id:"c", label:"Letting students govern the schools themselves"},
+        {id:"d", label:"Sending students home for free after one year"}],
+      why:"Boarding schools cut students' hair, banned Native languages, and tried to erase tribal identity."},
+    {text:"Approximately how many acres of reservation land did Native American tribes lose after the Dawes Act?", answer:"c",
+      options:[
+        {id:"a", label:"About 9 million acres"},
+        {id:"b", label:"About 900 million acres"},
+        {id:"c", label:"About 90 million acres"},
+        {id:"d", label:"About 900,000 acres"}],
+      why:"Tribal land fell from roughly 138 million acres to about 48 million, a loss near 90 million acres, as leftover land was sold to settlers."}
+  ]},
+"3.1": {id:"3.1", level:3, name:"Investigative Reporter", max:100, tags:["reform","tech"], type:"match",
+  intro:"Complete the Muckraker File. Match each clue to the activist behind it. Each activist is used once.",
+  targets:[{id:"riis", label:"Jacob Riis"},{id:"sinclair", label:"Upton Sinclair"},{id:"hine", label:"Lewis Hine"},{id:"addams", label:"Jane Addams"},{id:"wells", label:"Ida B. Wells"}], unique:true,
+  items:[
+    {text:"Exposed racial violence and lynchings in the South.", answer:"wells", why:"Wells investigated lynchings and published what she found."},
+    {text:"Photographed urban tenement poverty in How the Other Half Lives.", answer:"riis", why:"Riis's photographs showed crowded, unsafe tenements in New York City."},
+    {text:"Exposed unsanitary conditions in meatpacking plants in The Jungle.", answer:"sinclair", why:"Sinclair's novel revealed filth and danger inside Chicago meatpacking plants."},
+    {text:"Photographed child labor in coal mines and textile mills.", answer:"hine", why:"Hine's photos of working children fueled the push for child labor laws."},
+    {text:"Founded Hull House to support poor working women and immigrants.", answer:"addams", why:"Hull House in Chicago offered classes, childcare, and other help to its neighbors."}
+  ]},
+"3.2": {id:"3.2", level:3, name:"The Jungle Reform", label:"Boss battle", boss:true, max:100, tags:["reform","tech","politics"], type:"write",
+  intro:"Write a PEEL paragraph: How did Upton Sinclair's book The Jungle lead directly to government regulation of big business? Include both the Meat Inspection Act of 1906 and the Pure Food and Drug Act of 1906.",
+  fields:[
+    {key:"P", label:"Point: your answer in one sentence", min:8, rows:3, ph:"The Jungle led to government regulation because..."},
+    {key:"E", label:"Evidence: what the book exposed", min:8, rows:3, ph:"In the book, Sinclair described..."},
+    {key:"X", label:"Explanation: how the evidence led to action", min:10, rows:4, ph:"This mattered because readers..."},
+    {key:"L", label:"Link: the laws that resulted", min:6, rows:3, ph:"As a result, Congress passed..."}
+  ],
+  criteria:[
+    {label:"Point: ties The Jungle or Sinclair to government regulation", pts:25,
+      fn:c=>words(c.t.P)>=8 && /sinclair|jungle/.test(c.low.P) && /regulat|law|government|reform|inspect/.test(c.low.P) ? 1 : 0},
+    {label:"Evidence: describes the unsanitary conditions the book exposed", pts:25,
+      fn:c=>words(c.t.E)>=8 && /unsanitar|filth|\brats?\b|rotten|spoil|contaminat|disgust|dirty|condition|meatpack|slaughter|sausage|diseas|unsafe/.test(c.low.E) ? 1 : 0},
+    {label:"Explanation: shows how public outrage pushed Roosevelt and Congress to act", pts:25,
+      fn:c=>words(c.t.X)>=10 && /outcry|outrage|public|pressure|roosevelt|congress|demand|investigat|president|shock|reader|angry/.test(c.low.X) && /law|act|regulat|inspect|passed|bill|sign/.test(c.low.X) ? 1 : 0},
+    {label:"Link: names both the Meat Inspection Act and the Pure Food and Drug Act", pts:25,
+      fn:c=>words(c.t.L)>=6 ? ((/meat inspection/.test(c.all)?0.5:0) + (/pure food/.test(c.all)?0.5:0)) : 0}
+  ]},
+"4.1": {id:"4.1", level:4, name:"The Political Toolkit", max:75, tags:["reform","politics"], type:"match",
+  intro:"Match each Progressive reform tool to the situation where citizens should use it. Each tool is used once.",
+  targets:[{id:"initiative", label:"Initiative"},{id:"referendum", label:"Referendum"},{id:"recall", label:"Recall"},{id:"17th", label:"17th Amendment"}], unique:true,
+  items:[
+    {text:"The mayor is caught misusing city tax money, and voters want to remove him before his term ends.", answer:"recall", why:"A recall election lets voters remove an official early."},
+    {text:"Citizens write a petition to ban plastic bags because the city council refuses to act.", answer:"initiative", why:"An initiative lets citizens propose a law themselves."},
+    {text:"Voters vote directly on a new state tax law passed by the legislature.", answer:"referendum", why:"A referendum lets voters approve or reject a law the legislature passed."},
+    {text:"Citizens vote directly for their U.S. Senators instead of state legislatures choosing them.", answer:"17th", why:"The 17th Amendment (1913) created direct election of senators."}
+  ]},
+"5.1": {id:"5.1", level:5, name:"Presidential Sorting Hat", max:125, tags:["politics"], type:"match",
+  intro:"Which president? Match each action or achievement to the correct leader. Each president is used once.",
+  targets:[{id:"tr", label:"Theodore Roosevelt"},{id:"taft", label:"William Howard Taft"},{id:"wilson", label:"Woodrow Wilson"}], unique:true,
+  items:[
+    {text:"Known as the \"Trust Buster\" who negotiated the \"Square Deal\" and established national parks.", answer:"tr", why:"Roosevelt took on trusts, promoted the Square Deal, and protected public lands."},
+    {text:"Broke up twice as many monopolies as his predecessor and established the Children's Bureau.", answer:"taft", why:"Taft's administration filed far more antitrust suits than Roosevelt's, and the Children's Bureau began in 1912."},
+    {text:"Passed the Clayton Antitrust Act, created the Federal Reserve, and oversaw the passage of the 17th to 19th Amendments.", answer:"wilson", why:"Wilson signed the Federal Reserve Act (1913) and the Clayton Antitrust Act (1914)."}
+  ]},
+"final": {id:"final", level:6, name:"The Master Synthesis", label:"Final boss challenge", boss:true, max:200, tags:["west","tech","reform","politics"], type:"write",
+  intro:"Write a 4 to 5 sentence response: How did the rapid industrial growth and expansion of the Gilded Age create both incredible economic opportunities and severe social problems, and how did Progressive Era reforms attempt to fix those problems?",
+  fields:[{key:"a", label:"Your synthesis (4 to 5 sentences)", min:35, rows:9, ph:"During the Gilded Age, industrial growth created..."}],
+  criteria:[
+    {label:"Economic opportunities: names at least two (jobs, factories, railroads, steel, inventions, wealth)", pts:50,
+      fn:c=>half(D([/opportunit/,/\bjobs?\b|employ/,/factor(y|ies)/,/railroad|\brail/,/steel|\boil\b|coal/,/wealth|\brich|fortune|millionaire|profit/,/invent|innovat|electric|telegraph|telephone|bulb|technolog/,/growth|boom|expan/,/econom/,/immigra/], c.all))},
+    {label:"Social problems: names at least two (child labor, poverty, tenements, unsafe work, monopolies)", pts:50,
+      fn:c=>half(D([/child labor|child worker|children work/,/poverty|\bpoor\b/,/tenement|slum|overcrowd|crowded/,/unsafe|danger|hazard|injur|accident/,/unsanitar|filth|dirty|disease|sick|contaminat/,/monopol|\btrusts?\b|corporate power|big business/,/low wage|long hours|exploit|abus|mistreat|unfair|inequal/,/pollut|corrupt|lynch|discriminat|racis|violence/], c.all))},
+    {label:"Progressive reforms: names a specific reform, law, or reformer", pts:50,
+      fn:c=>{const spec=D([/muckrak|sinclair|riis|hine|wells|addams|journalis/,/meat inspection/,/pure food/,/clayton|antitrust|trust.?bust|square deal|sherman/,/federal reserve/,/17th|seventeenth|direct election|senators/,/initiative|referendum|recall/,/roosevelt|wilson|taft/,/progressive/], c.all); const gen=/regulat|reform|legislat|\blaws?\b|\bacts?\b/.test(c.all)?1:0; return spec>=1 && spec+gen>=2 ? 1 : (spec+gen>=1 ? 0.5 : 0);}},
+    {label:"Cause and effect: connects the problems to the reforms (because, led to, in response)", pts:25,
+      fn:c=>/however|\bbut\b|while|although|as a result|because|led to|leading to|in response|to fix|to solve|to address|in turn|therefore|so that|which/.test(c.all) ? 1 : 0},
+    {label:"Length: 4 to 5 sentences", pts:25,
+      fn:c=>{const n=c.t.a.split(/[.!?]+/).filter(s=>s.trim().length>2).length; return (n===4||n===5)?1:(n===3||n===6)?0.5:0;}}
+  ]}
+};
+
+const KEY = "qfr_save_v1";
+let S = {name:"", faction:"", quests:{}, bonus:{}, mute:false, screen:"title", confirmReset:false, picked:""};
+let R = null;   // active quest run
+let LR = null;  // last result
+function load(){
+  try{
+    const j = JSON.parse(localStorage.getItem(KEY) || "null");
+    if(j && j.faction){ S.name=j.name||""; S.faction=j.faction; S.quests=j.quests||{}; S.bonus=j.bonus||{}; S.mute=!!j.mute; return true; }
+  }catch(e){}
+  return false;
+}
+function save(){
+  try{ localStorage.setItem(KEY, JSON.stringify({name:S.name,faction:S.faction,quests:S.quests,bonus:S.bonus,mute:S.mute})); }catch(e){}
+}
+const hadSave = load();
+
+const fac = () => FACTIONS.find(f => f.id === S.faction) || FACTIONS[0];
+function rawTotal(){
+  let t = 0;
+  for(const k in S.quests) t += S.quests[k].xp + S.quests[k].fb;
+  for(const k in S.bonus) t += S.bonus[k];
+  return t;
+}
+const total = () => Math.min(1000, rawTotal());
+const rankFor = x => RANKS.find(r => x >= r.min);
+const levelDone = L => L.quests.every(id => S.quests[id]);
+const levelsCleared = () => LEVELS.filter(levelDone).length;
+
+let ac = null;
+function tone(freqs, dur, type){
+  if(S.mute) return;
+  try{
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    const t0 = ac.currentTime;
+    freqs.forEach((f, i) => {
+      const o = ac.createOscillator(), g = ac.createGain();
+      o.type = type || "square"; o.frequency.value = f;
+      g.gain.setValueAtTime(0.05, t0 + i*dur);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + (i+1)*dur);
+      o.connect(g); g.connect(ac.destination);
+      o.start(t0 + i*dur); o.stop(t0 + (i+1)*dur);
+    });
+  }catch(e){}
+}
+const sfx = {ok:()=>tone([660,880],0.09), bad:()=>tone([170,120],0.12,"sawtooth"), win:()=>tone([523,659,784,1047],0.12)};
+
+const SCENE = `<svg viewBox="0 0 160 80" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges" role="img" aria-label="Pixel art: a locomotive crosses the prairie at sunset toward factory chimneys and the Capitol dome">
+<defs><pattern id="ties" width="6" height="14" patternUnits="userSpaceOnUse"><rect width="3" height="14" fill="#2a2018"/></pattern></defs>
+<rect width="160" height="80" fill="#162a45"/>
+<rect y="12" width="160" height="12" fill="#1f3d5e"/>
+<rect y="24" width="160" height="10" fill="#2d5b7e"/>
+<rect y="34" width="160" height="9" fill="#6b8aa3"/>
+<rect y="43" width="160" height="7" fill="#e0a458"/>
+<rect y="50" width="160" height="8" fill="#f2c14e"/>
+<g fill="#f3e9cf"><rect x="12" y="6" width="1" height="1"/><rect x="40" y="14" width="1" height="1"/><rect x="74" y="5" width="1" height="1"/><rect x="101" y="11" width="1" height="1"/><rect x="132" y="7" width="1" height="1"/><rect x="150" y="18" width="1" height="1"/><rect x="26" y="22" width="1" height="1"/></g>
+<g fill="#fff1c1"><rect x="41" y="44" width="6" height="2"/><rect x="39" y="46" width="10" height="2"/><rect x="37" y="48" width="14" height="2"/><rect x="36" y="50" width="16" height="2"/><rect x="35" y="52" width="18" height="2"/><rect x="34" y="54" width="20" height="2"/></g>
+<polygon fill="#284a6b" points="0,60 0,50 8,50 8,46 16,46 16,42 26,42 26,48 34,48 34,52 40,52 40,46 52,46 52,50 62,50 62,60"/>
+<polygon fill="#1b3552" points="0,62 0,57 14,57 14,55 32,55 32,58 56,58 56,54 80,54 80,58 160,58 160,62"/>
+<g><rect x="84" y="54" width="22" height="4" fill="#8fa6bb"/><rect x="88" y="52" width="14" height="2" fill="#a9bccd"/><rect x="90" y="48" width="10" height="4" fill="#8fa6bb"/><rect x="92" y="45" width="6" height="3" fill="#a9bccd"/><rect x="94" y="42" width="2" height="3" fill="#8fa6bb"/></g>
+<g fill="#0e1a2d"><rect x="108" y="46" width="14" height="12"/><rect x="124" y="40" width="10" height="18"/><rect x="136" y="47" width="12" height="11"/><rect x="148" y="42" width="12" height="16"/><rect x="112" y="36" width="3" height="10"/><rect x="127" y="30" width="3" height="10"/><rect x="153" y="33" width="3" height="9"/></g>
+<g fill="#f2c14e"><rect x="111" y="50" width="2" height="2"/><rect x="116" y="50" width="2" height="2"/><rect x="127" y="46" width="2" height="2"/><rect x="127" y="52" width="2" height="2"/><rect x="139" y="51" width="2" height="2"/><rect x="151" y="48" width="2" height="2"/><rect x="156" y="48" width="2" height="2"/></g>
+<g fill="#8fa3b6"><rect class="puff" x="112" y="32" width="4" height="3"/><rect class="puff p2" x="127" y="26" width="4" height="3"/><rect class="puff p3" x="153" y="29" width="4" height="3"/></g>
+<rect y="58" width="160" height="8" fill="#2e5b45"/>
+<g><rect x="8" y="54" width="12" height="2" fill="#f3e9cf"/><rect x="7" y="56" width="14" height="4" fill="#f3e9cf"/><rect x="6" y="60" width="16" height="2" fill="#7a5a3a"/><rect x="8" y="62" width="3" height="3" fill="#2a2018"/><rect x="17" y="62" width="3" height="3" fill="#2a2018"/></g>
+<rect y="66" width="160" height="14" fill="#4a3a2c"/>
+<rect y="66" width="160" height="14" fill="url(#ties)"/>
+<rect y="66" width="160" height="1" fill="#b9c8d6"/>
+<rect y="69" width="160" height="1" fill="#b9c8d6"/>
+<g class="tr">
+<rect x="1" y="57" width="3" height="3" fill="#0e1a2d"/><rect x="0" y="56" width="5" height="1" fill="#f2c14e"/>
+<rect x="0" y="60" width="13" height="5" fill="#0e1a2d"/>
+<rect x="13" y="57" width="8" height="8" fill="#d9453d"/><rect x="12" y="56" width="10" height="1" fill="#0e1a2d"/>
+<rect x="15" y="59" width="3" height="3" fill="#f3e9cf"/>
+<rect x="0" y="65" width="22" height="1" fill="#f2c14e"/>
+<rect x="2" y="65" width="4" height="4" fill="#f3e9cf"/><rect x="8" y="65" width="4" height="4" fill="#f3e9cf"/><rect x="15" y="65" width="4" height="4" fill="#f3e9cf"/>
+<rect x="22" y="62" width="3" height="1" fill="#f3e9cf"/>
+<rect x="25" y="59" width="14" height="6" fill="#2d5b7e"/><rect x="25" y="58" width="14" height="1" fill="#0e1a2d"/>
+<rect x="27" y="61" width="4" height="2" fill="#f2c14e"/><rect x="33" y="61" width="4" height="2" fill="#f2c14e"/>
+<rect x="25" y="65" width="14" height="1" fill="#0e1a2d"/>
+<rect x="27" y="65" width="3" height="4" fill="#f3e9cf"/><rect x="34" y="65" width="3" height="4" fill="#f3e9cf"/>
+</g>
+</svg>`;
+
+const TRAIN = `<svg viewBox="0 0 40 14" shape-rendering="crispEdges" aria-hidden="true">
+<rect x="1" y="1" width="3" height="3" fill="#0e1a2d"/><rect x="0" y="0" width="5" height="1" fill="#f2c14e"/>
+<rect x="0" y="4" width="13" height="5" fill="#0e1a2d"/>
+<rect x="13" y="1" width="8" height="8" fill="#d9453d"/><rect x="12" y="0" width="10" height="1" fill="#0e1a2d"/>
+<rect x="15" y="3" width="3" height="3" fill="#f3e9cf"/>
+<rect x="0" y="9" width="22" height="1" fill="#f2c14e"/>
+<rect x="2" y="9" width="4" height="4" fill="#f3e9cf"/><rect x="8" y="9" width="4" height="4" fill="#f3e9cf"/><rect x="15" y="9" width="4" height="4" fill="#f3e9cf"/>
+<rect x="22" y="6" width="3" height="1" fill="#f3e9cf"/>
+<rect x="25" y="3" width="14" height="6" fill="#2d5b7e"/><rect x="25" y="2" width="14" height="1" fill="#0e1a2d"/>
+<rect x="27" y="5" width="4" height="2" fill="#f2c14e"/><rect x="33" y="5" width="4" height="2" fill="#f2c14e"/>
+<rect x="27" y="9" width="3" height="4" fill="#f3e9cf"/><rect x="34" y="9" width="3" height="4" fill="#f3e9cf"/>
+</svg>`;
+
+function viewHud(){
+  const x = total(), r = rankFor(x), f = fac();
+  return `<header class="hud">
+    <div class="who">${f.icon} ${H(S.name || "Player")}</div>
+    <button class="iconbtn" data-act="snd" aria-label="${S.mute ? "Turn sound on" : "Turn sound off"}">${S.mute ? "🔇" : "🔊"}</button>
+    <div class="xprow">
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="1000" aria-valuenow="${x}" aria-label="Experience points"><i style="width:${x/10}%"></i><b style="left:25%"></b><b style="left:50%"></b><b style="left:75%"></b></div>
+      <div class="xpnum">${x} XP</div>
+    </div>
+    <div class="rankline">Rank: ${r.icon} ${r.name}</div>
+  </header>`;
+}
+
+function rankTable(highlight){
+  return `<table class="ranktable"><tbody>${RANKS.map(r => `<tr class="${highlight===r.name?"me":""}"><td>${r.icon}</td><td>${r.name}</td><td>${r.range}</td><td>+${r.bonus}% on Unit Test</td></tr>`).join("")}</tbody></table>`;
+}
+
+function viewTitle(){
+  return `<section class="title">
+    <div class="hero">${SCENE}</div>
+    <h1 tabindex="-1">Quest for Reform</h1>
+    <p class="lead">Ride the rails through the Gilded Age and the Progressive Era. Complete quests in five eras of American history to earn up to 1,000 XP of extra credit.</p>
+    <label class="field-label" for="nm">Your name</label>
+    <input id="nm" class="text-in" type="text" maxlength="40" autocomplete="name" value="${H(S.name)}" placeholder="Type your name">
+    <p class="small muted" id="nmerr" role="alert" style="min-height:22px;margin-top:6px"></p>
+    <div class="actions" style="margin-top:8px">
+      <button class="btn primary" data-act="start">Start new game</button>
+      ${hadSave && S.faction ? `<button class="btn" data-act="continue">Continue saved game</button>` : ""}
+    </div>
+    <details class="panel" style="margin-top:28px"><summary>XP and rank board</summary>
+      <p class="small muted" style="margin-top:10px">Your total XP sets your rank and your bonus points on the unit test.</p>${rankTable()}</details>
+  </section>`;
+}
+
+function viewFaction(){
+  return `<section>
+    <h1 class="pix" style="font-size:clamp(15px,4.6vw,22px)" tabindex="-1">Choose your faction</h1>
+    <p style="margin-top:10px">Your faction gives you a passive ability: +20 XP on every quest of its kind (you must score at least half the points on a quest to collect it). Quests show which bonus they carry.</p>
+    <div class="facs" role="group" aria-label="Factions">
+      ${FACTIONS.map(f => `<button class="fac" data-act="pickFaction" data-id="${f.id}" aria-pressed="${S.picked===f.id}"><span class="ic" aria-hidden="true">${f.icon}</span><span><strong>${f.name}</strong><span>${f.perk}</span></span></button>`).join("")}
+    </div>
+    <div class="actions"><button class="btn primary" data-act="begin" ${S.picked?"":"disabled"}>Begin journey</button></div>
+  </section>`;
+}
+
+function qrow(id){
+  const Q = QUESTS[id], d = S.quests[id], f = fac();
+  const perk = Q.tags.includes(f.tag);
+  const prefix = Q.label ? Q.label : "Quest " + id;
+  let act;
+  if(d) act = `<span class="got">Cleared<br>${d.xp}/${d.max} XP${d.fb ? " +" + d.fb : ""}</span>`;
+  else if(Q.requires && !S.quests[Q.requires]) act = `<span class="lock">Clear Quest ${Q.requires} first</span>`;
+  else act = `<button class="btn sm" data-act="play" data-q="${id}" aria-label="Play ${H(prefix)}: ${H(Q.name)}">Play</button>`;
+  return `<li class="qrow${Q.boss ? " boss" : ""}"><div><div class="qname">${H(prefix)}: ${H(Q.name)}</div><div class="meta">${Q.boss && Q.id==="1.1b" ? "Bonus " : ""}${Q.max} XP${perk ? `, ${f.icon} +20 faction bonus` : ""}</div></div>${act}</li>`;
+}
+
+function viewMap(){
+  const cur = LEVELS.find(L => !levelDone(L));
+  const cleared = levelsCleared();
+  const finalOpen = cleared >= UNLOCK_AT;
+  const finalDone = !!S.quests.final;
+  const stops = LEVELS.map(L => {
+    const done = levelDone(L);
+    const state = done ? "cleared" : (cur && cur.id === L.id ? "current" : "open");
+    const node = done ? "✓" : (state === "current" ? TRAIN : L.id);
+    return `<li class="stop ${state}">
+      <div class="node" aria-hidden="true">${node}</div>
+      <div class="stopcard panel">
+        <h2>Level ${L.id}: ${H(L.title)}</h2>
+        <p class="focus">${L.years ? L.years + ". " : ""}${H(L.focus)}</p>
+        ${S.bonus[L.id] ? `<p class="small" style="margin-top:6px;color:var(--goldtext);font-weight:700">Perfect level: +25 XP</p>` : ""}
+        <ul class="qlist">${L.quests.map(qrow).join("")}</ul>
+      </div></li>`;
+  }).join("");
+  const finalStop = `<li class="stop ${finalDone ? "cleared" : (finalOpen ? "current" : "locked")}">
+    <div class="node" aria-hidden="true">${finalDone ? "✓" : "★"}</div>
+    <div class="stopcard panel">
+      <h2>Final Boss Challenge</h2>
+      <p class="focus">Pull everything together in one synthesis.</p>
+      <ul class="qlist">${finalOpen || finalDone ? qrow("final") : `<li class="qrow boss"><div><div class="qname">Final boss challenge: The Master Synthesis</div><div class="meta">200 XP</div></div><span class="lock">Clear ${UNLOCK_AT} levels to unlock (${cleared}/${UNLOCK_AT})</span></li>`}</ul>
+    </div></li>`;
+  return `<section>
+    <div class="hero slim">${SCENE}</div>
+    <h1 class="pix" style="font-size:clamp(15px,4.6vw,22px);margin-top:20px" tabindex="-1">Choose your quest</h1>
+    <p class="muted" style="margin-top:6px">Play the levels in any order. Each quest counts your first try, so think before you pick.</p>
+    <ol class="track">${stops}${finalStop}</ol>
+    <div class="actions"><button class="btn" data-act="finish">Finish run and see my rank</button></div>
+  </section>`;
+}
+
+function qhead(Q){
+  const f = fac();
+  const where = Q.level === 6 ? "Final boss" : "Level " + Q.level;
+  const perk = Q.tags.includes(f.tag);
+  return `<div class="qhead">
+    <p class="muted small">${where}, worth ${Q.max} XP</p>
+    <h1 class="pix h1" tabindex="-1">${H(Q.label ? Q.label + ": " : "Quest " + Q.id + ": ")}${H(Q.name)}</h1>
+    <p>${H(Q.intro)}</p>
+    ${perk ? `<span class="badge">${f.icon} Faction bonus: +20 XP</span>` : ""}
+  </div>`;
+}
+
+function viewMatch(Q){
+  const n = Q.items.length, it = Q.items[R.idx];
+  const opts = it.options || Q.targets;
+  const pips = Q.items.map((_, i) => `<i class="pip ${i < R.idx ? "done" : (i === R.idx ? "now" : "")}"></i>`).join("");
+  const isGate = Q.variant === "gates";
+  const optHtml = opts.map(o => {
+    let cls = "", dis = false;
+    if(R.cur.correct && o.id === it.answer){ cls = "good"; dis = true; }
+    else if(R.cur.wrong.includes(o.id)){ cls = "bad"; dis = true; }
+    else if(Q.unique && R.used[o.id]){ cls = "used"; dis = true; }
+    else if(R.cur.correct){ dis = true; }
+    const mark = cls === "good" ? "Correct: " : cls === "bad" ? "Not this one: " : "";
+    return `<button class="opt ${cls}" data-act="opt" data-id="${H(o.id)}" ${dis ? "disabled" : ""}><strong>${mark}${H(o.label)}</strong>${o.sub ? `<span>${H(o.sub)}</span>` : ""}</button>`;
+  }).join("");
+  let fb = "";
+  if(R.cur.correct){
+    const first = R.cur.wrong.length === 0;
+    fb = `<p class="okline">${first ? "Correct, +" + (Q.max / n).toFixed(0) + " XP." : "Correct, but no XP for this one. Now you know."}</p><p>${H(it.why)}</p>`;
+  } else if(R.cur.wrong.length){
+    fb = `<p class="okline">Not quite. Pick another option.</p>`;
+  }
+  const last = R.idx === n - 1;
+  return `<section class="stack">
+    ${qhead(Q)}
+    <div class="panel">
+      <div class="pips" aria-label="Question ${R.idx + 1} of ${n}">${pips}</div>
+      <p class="streak" aria-live="polite">${R.streak > 1 ? "Streak x" + R.streak : "&nbsp;"}</p>
+      <p class="item" style="margin-top:10px">${H(it.text)}</p>
+      <div class="opts ${isGate ? "gates" : ""}">${optHtml}</div>
+      <div class="feedback" aria-live="polite">${fb}</div>
+      ${R.cur.correct ? `<div class="actions" style="margin-top:4px"><button class="btn primary" data-act="next">${last ? "Finish quest" : "Next"}</button></div>` : ""}
+    </div>
+  </section>`;
+}
+
+function viewWrite(Q){
+  const rub = Q.criteria.map(c => `<li><span class="sym" aria-hidden="true">☐</span><span>${H(c.label)}</span><span class="pts">${c.pts} XP</span></li>`).join("");
+  const fields = Q.fields.map(f => `<label for="f-${f.key}">${H(f.label)}</label>
+    <textarea id="f-${f.key}" data-f="${f.key}" rows="${f.rows}" placeholder="${H(f.ph)}">${H(R.fields[f.key] || "")}</textarea>
+    <p class="wc" id="wc-${f.key}">0 words (aim for at least ${f.min})</p>`).join("");
+  return `<section class="stack">
+    ${qhead(Q)}
+    <div class="panel bosscard">
+      <div class="hp"><span>Boss HP</span><div class="bar" aria-hidden="true"><i style="width:100%"></i></div><span>100%</span></div>
+      <p class="small muted">Beat the boss by hitting every weak point below. Your answer is checked for these ideas.</p>
+      <ul class="rubric">${rub}</ul>
+    </div>
+    <div class="panel writer">
+      ${fields}
+      <div class="actions"><button class="btn primary" id="sub" data-act="submit" disabled>Attack the boss</button></div>
+    </div>
+  </section>`;
+}
+
+function viewPlay(){
+  const Q = QUESTS[R.id];
+  return Q.type === "match" ? viewMatch(Q) : viewWrite(Q);
+}
+
+function viewDone(){
+  const Q = QUESTS[LR.qid], r = rankFor(total());
+  let detail = "";
+  if(Q.type === "match"){
+    detail = `<p>You matched <strong>${LR.firsts} of ${LR.n}</strong> on the first try.</p>`;
+  } else {
+    const hp = 100 - Math.round(100 * LR.xp / Q.max);
+    detail = `<div class="hp"><span>Boss HP</span><div class="bar" aria-hidden="true"><i id="hpfill" style="width:100%" data-to="${hp}"></i></div><span>${hp}%</span></div>
+      <ul class="rubric">${LR.res.map(x => {
+        const sym = x.f >= 1 ? "✓" : x.f > 0 ? "½" : "✗";
+        return `<li><span class="sym" aria-hidden="true">${sym}</span><span><span class="sr" style="position:absolute;left:-9999px">${x.f >= 1 ? "Hit" : x.f > 0 ? "Partial" : "Missed"}: </span>${H(x.label)}</span><span class="pts">${Math.round(x.pts * x.f)}/${x.pts}</span></li>`;
+      }).join("")}</ul>
+      <p class="small muted" style="margin-top:10px">Written answers are scored by an automatic keyword check. Your teacher has the final say.</p>`;
+  }
+  const rankUp = LR.before !== LR.after ? `<p class="okline" style="color:var(--goldtext);font-weight:700">Rank up! You are now ${r.icon} ${r.name}.</p>` : "";
+  const isFinal = Q.id === "final";
+  return `<section class="stack">
+    <div class="panel lines">
+      <h1 class="pix" style="font-size:clamp(14px,4vw,20px)" tabindex="-1">${isFinal ? "Final boss defeated" : "Quest cleared"}</h1>
+      <p class="muted" style="margin-top:6px">${H(Q.name)}</p>
+      <p class="bigxp" style="margin-top:14px">+<span id="cnt" data-to="${LR.xp}">${LR.xp}</span> XP</p>
+      ${LR.fb ? `<p>${fac().icon} Faction bonus: <strong>+${LR.fb} XP</strong></p>` : ""}
+      ${LR.lb ? `<p>Perfect level: <strong>+${LR.lb} XP</strong></p>` : ""}
+      <p>Total: <strong>${total()} XP</strong></p>
+      ${rankUp}
+    </div>
+    <div class="panel">${detail}</div>
+    <div class="actions">
+      ${isFinal ? `<button class="btn primary" data-act="finish">See my final rank</button><button class="btn" data-act="map">Back to map</button>` : `<button class="btn primary" data-act="map">Back to map</button>`}
+    </div>
+  </section>`;
+}
+
+function report(){
+  const f = fac(), x = total(), r = rankFor(x);
+  let s = "QUEST FOR REFORM: PLAYER REPORT\n";
+  s += "Name: " + (S.name || "") + "\nFaction: " + f.name + "\nTotal XP: " + x + " / 1000\nRank: " + r.name + " (+" + r.bonus + "% on Unit Test)\n\nQuest results\n";
+  ALLQ.forEach(id => {
+    const Q = QUESTS[id], d = S.quests[id];
+    s += (Q.label ? Q.label : "Quest " + id) + ", " + Q.name + ": " + (d ? d.xp + "/" + d.max + " XP" + (d.fb ? " (+" + d.fb + " faction bonus)" : "") : "not played") + "\n";
+  });
+  const lb = Object.keys(S.bonus).filter(k => S.bonus[k]);
+  if(lb.length) s += "Perfect level bonuses: " + lb.map(k => "Level " + k + " (+25)").join(", ") + "\n";
+  const written = ALLQ.filter(id => QUESTS[id].type === "write" && S.quests[id] && S.quests[id].answers);
+  if(written.length){
+    s += "\nWritten answers\n";
+    written.forEach(id => {
+      const Q = QUESTS[id];
+      s += "\n" + Q.name + "\n";
+      Q.fields.forEach(f2 => { s += (Q.fields.length > 1 ? f2.label.split(":")[0] + ": " : "") + (S.quests[id].answers[f2.key] || "") + "\n"; });
+    });
+  }
+  s += "\nNote: written answers were scored by an automatic keyword check. Teacher has the final say.";
+  return s;
+}
+
+function viewEnd(){
+  const x = total(), r = rankFor(x), played = ALLQ.filter(id => S.quests[id]).length;
+  return `<section class="stack">
+    <div class="panel rankcard">
+      <div class="em" aria-hidden="true">${r.icon}</div>
+      <h1 class="pix" style="margin-top:10px" tabindex="-1">${r.name}</h1>
+      <p class="bigxp" style="margin-top:12px">${x} XP</p>
+      <p style="font-size:22px;font-weight:700;margin-top:6px">+${r.bonus}% on your Unit Test</p>
+      <p class="muted small" style="margin-top:6px">${played} of ${ALLQ.length} quests played</p>
+    </div>
+    <div class="panel"><p class="pix" style="font-size:11px">Rank board</p>${rankTable(r.name)}</div>
+    <div class="panel">
+      <p class="pix" style="font-size:11px">Your report</p>
+      <p class="small muted" style="margin-top:8px">Copy this report and turn it in to your teacher.</p>
+      <textarea class="report" id="rep" readonly aria-label="Player report">${H(report())}</textarea>
+      <p class="small" id="copymsg" role="status" style="min-height:22px;margin-top:6px"></p>
+      <div class="actions" style="margin-top:4px"><button class="btn primary" data-act="copy">Copy report</button></div>
+    </div>
+    <div class="actions">
+      <button class="btn" data-act="map">Keep playing</button>
+      <button class="btn" data-act="reset">${S.confirmReset ? "Tap again to erase everything" : "Start over"}</button>
+    </div>
+  </section>`;
+}
+
+function view(){
+  switch(S.screen){
+    case "title": return viewTitle();
+    case "faction": return viewFaction();
+    case "map": return viewMap();
+    case "play": return viewPlay();
+    case "done": return viewDone();
+    case "end": return viewEnd();
+  }
+  return "";
+}
+
+const app = $("#app");
+function render(top){
+  const hud = (S.screen === "title" || S.screen === "faction") ? "" : viewHud();
+  app.innerHTML = `<div class="wrap">${hud}<main>${view()}</main></div>`;
+  if(top){
+    window.scrollTo(0, 0);
+    const h = $("h1[tabindex]");
+    if(h) h.focus({preventScroll:true});
+  }
+  after();
+}
+function go(screen){ S.screen = screen; S.confirmReset = false; render(true); }
+
+function after(){
+  if(S.screen === "play" && QUESTS[R.id].type === "write") updateWC();
+  if(S.screen === "done"){
+    const c = $("#cnt");
+    if(c && !reduced){
+      const to = +c.dataset.to, t0 = performance.now();
+      const tick = t => { const p = Math.min(1, (t - t0) / 700); c.textContent = Math.round(to * p); if(p < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    }
+    const hp = $("#hpfill");
+    if(hp) setTimeout(() => { hp.style.width = hp.dataset.to + "%"; }, 80);
+  }
+}
+
+function startQuest(id){
+  const Q = QUESTS[id];
+  R = {id, idx:0, cur:{wrong:[], correct:false}, used:{}, score:0, streak:0, firsts:0, fields:{}};
+  S.screen = "play"; render(true);
+}
+
+function pick(oid){
+  const Q = QUESTS[R.id], it = Q.items[R.idx];
+  if(R.cur.correct || R.cur.wrong.includes(oid) || (Q.unique && R.used[oid])) return;
+  if(oid === it.answer){
+    R.cur.correct = true;
+    if(R.cur.wrong.length === 0){ R.score += Q.max / Q.items.length; R.streak++; R.firsts++; }
+    if(Q.unique) R.used[oid] = true;
+    sfx.ok();
+  } else {
+    R.cur.wrong.push(oid); R.streak = 0; sfx.bad();
+  }
+  render(false);
+  const nx = $('[data-act="next"]'); if(nx) nx.focus({preventScroll:false});
+}
+
+function next(){
+  const Q = QUESTS[R.id];
+  if(R.idx < Q.items.length - 1){
+    R.idx++; R.cur = {wrong:[], correct:false}; render(false);
+    const it = $(".item"); if(it){ it.setAttribute("tabindex","-1"); it.focus({preventScroll:true}); }
+  } else {
+    finishQuest(R.score, {firsts:R.firsts, n:Q.items.length});
+  }
+}
+
+function submitWrite(){
+  const Q = QUESTS[R.id];
+  const t = {}, low = {};
+  Q.fields.forEach(f => { t[f.key] = R.fields[f.key] || ""; low[f.key] = t[f.key].toLowerCase(); });
+  const all = Object.values(low).join(" ");
+  const ctx = {t, low, all};
+  let earned = 0;
+  const res = Q.criteria.map(c => { const f = c.fn(ctx); earned += c.pts * f; return {label:c.label, f, pts:c.pts}; });
+  finishQuest(earned, {res, answers:t});
+}
+
+function finishQuest(earned, extra){
+  const Q = QUESTS[R.id], f = fac();
+  const before = rankFor(total()).name;
+  const xp = Math.round(earned);
+  const fb = (Q.tags.includes(f.tag) && xp >= Q.max * 0.5) ? 20 : 0;
+  S.quests[Q.id] = {xp, max:Q.max, fb, answers: extra.answers || null};
+  let lb = 0;
+  const L = LEVELS.find(l => l.id === Q.level);
+  if(L && !S.bonus[L.id] && L.quests.every(id => S.quests[id]) && L.quests.every(id => S.quests[id].xp === S.quests[id].max)){
+    S.bonus[L.id] = 25; lb = 25;
+  }
+  save();
+  LR = Object.assign({qid:Q.id, xp, fb, lb, before, after:rankFor(total()).name}, extra);
+  sfx.win();
+  go("done");
+}
+
+function updateWC(){
+  if(!R || S.screen !== "play") return;
+  const Q = QUESTS[R.id];
+  if(Q.type !== "write") return;
+  let ok = true;
+  Q.fields.forEach(f => {
+    const n = words(R.fields[f.key]);
+    const el = $("#wc-" + f.key);
+    if(el) el.textContent = n + " word" + (n === 1 ? "" : "s") + " (aim for at least " + f.min + ")";
+    if(n < f.min) ok = false;
+  });
+  const b = $("#sub"); if(b) b.disabled = !ok;
+}
+
+document.addEventListener("input", e => {
+  const t = e.target;
+  if(t && t.matches && t.matches("textarea[data-f]")){ R.fields[t.dataset.f] = t.value; updateWC(); }
+});
+
+document.addEventListener("keydown", e => {
+  if(e.key === "Enter" && e.target && e.target.id === "nm"){ e.preventDefault(); act("start", e.target); }
+});
+
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-act]");
+  if(b) act(b.dataset.act, b);
+});
+
+function act(a, el){
+  switch(a){
+    case "start": {
+      const v = ($("#nm").value || "").trim();
+      if(!v){ $("#nmerr").textContent = "Enter your name to start."; $("#nm").focus(); return; }
+      S.name = v; S.quests = {}; S.bonus = {}; S.picked = ""; R = null; LR = null;
+      go("faction"); break;
+    }
+    case "continue": {
+      const v = ($("#nm").value || "").trim(); if(v) S.name = v;
+      save(); go("map"); break;
+    }
+    case "pickFaction": S.picked = el.dataset.id; render(false); { const bb = $('[data-act="begin"]'); if(bb) bb.scrollIntoView({block:"nearest"}); } break;
+    case "begin": if(!S.picked) return; S.faction = S.picked; save(); go("map"); break;
+    case "play": startQuest(el.dataset.q); break;
+    case "opt": pick(el.dataset.id); break;
+    case "next": next(); break;
+    case "submit": submitWrite(); break;
+    case "map": go("map"); break;
+    case "finish": go("end"); break;
+    case "snd": S.mute = !S.mute; save(); render(false); break;
+    case "copy": {
+      const ta = $("#rep"), msg = $("#copymsg");
+      ta.focus(); ta.select();
+      let ok = false;
+      try{ ok = document.execCommand("copy"); }catch(err){}
+      if(!ok && navigator.clipboard){ navigator.clipboard.writeText(ta.value).then(() => { msg.textContent = "Report copied."; }, () => { msg.textContent = "Copy didn't work. The report is selected, so press Ctrl+C or long-press to copy."; }); return; }
+      msg.textContent = ok ? "Report copied." : "Copy didn't work. The report is selected, so press Ctrl+C or long-press to copy.";
+      break;
+    }
+    case "reset":
+      if(!S.confirmReset){ S.confirmReset = true; render(false); return; }
+      try{ localStorage.removeItem(KEY); }catch(err){}
+      S.quests = {}; S.bonus = {}; S.faction = ""; S.picked = ""; S.name = ""; R = null; LR = null;
+      location.reload();
+      break;
+  }
+}
+
+render(true);
+})();
+</script>
+</body>
+</html>
